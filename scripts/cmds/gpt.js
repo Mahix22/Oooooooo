@@ -2,11 +2,11 @@ const moment = require("moment-timezone");
 const axios = require('axios');
 
 module.exports = {
-  config: {
+	config: {
     name: "gpt",
     version: "1.0.0",
     role: 0,
-    author: "ᴍʀ.ᴀʏᴀɴ",//api by ᴍʀ.ᴀʏᴀɴ
+    author: "api by jerome",//api by jerome
     longDescription: "Gpt4 architecture",
     category: "ai",
     countDown: 5,
@@ -20,7 +20,7 @@ onChat: async function ({ api, event }) {
   if (message.indexOf(command) === 0 || message.indexOf(command.charAt(0).toUpperCase() + command.slice(1)) === 0) {
     const args = message.split(/\s+/);
     args.shift();
-
+   
 try {
         const { messageID, messageReply } = event;
         let prompt = args.join(' ');
@@ -31,9 +31,9 @@ try {
         }
 
         if (!prompt) {
-            return api.sendMessage('👾 | ʜᴇʟʟᴏ, ɪ ᴀᴍ ɢᴘᴛ-4 ᴛʀᴀɪɴᴇᴅ ʙʏ ᴏᴘᴇɴᴀɪ\n\nʜᴏᴡ ᴍᴀʏ ɪ ᴀssɪsᴛ ʏᴏᴜ ᴛᴏᴅᴀʏ?', event.threadID, messageID);
+            return api.sendMessage('👾 | 𝐇𝐞𝐥𝐥𝐨, 𝐈 𝐚𝐦 𝐆𝐩𝐭-4 𝐭𝐫𝐚𝐢𝐧𝐞𝐝 𝐛𝐲 𝐎𝐩𝐞𝐧𝐚𝐢\n\n𝐇𝐨𝐰 𝐦𝐚𝐲 𝐢 𝐚𝐬𝐬𝐢𝐬𝐭 𝐲𝐨𝐮 𝐭𝐨𝐝𝐚𝐲?', event.threadID, messageID);
         }
-        api.sendMessage('🔎 | ɢᴘᴛ-4 ɪs sᴇᴀʀᴄʜɪɴɢ, ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ...', event.threadID);
+        api.sendMessage('💭 | 𝐆𝐩𝐭-4 𝐢𝐬 𝐬𝐞𝐚𝐫𝐜𝐡𝐢𝐧𝐠, 𝐏𝐥𝐞𝐚𝐬𝐞 𝐰𝐚𝐢𝐭...', event.threadID);
 
         // Delay
         await new Promise(resolve => setTimeout(resolve, 2000)); // Adjust the delay time as needed
@@ -48,7 +48,7 @@ try {
             const generatedText = response.data.response;
 
             // Ai Answer Here
-            api.sendMessage(`🎓 ɢᴘᴛ-𝟒 ᴀɴsᴡᴇʀ \n\nᴀɴsᴡᴇʀ: ${generatedText}\n\n🗓 | ⏰ 𝙳𝚊𝚝𝚎 & 𝚃𝚒𝚖𝚎:\n${formattedDateTime}`, event.threadID, messageID);
+            api.sendMessage(`🎓 𝐆𝐩𝐭-𝟒 𝐀𝐧𝐬𝐰𝐞𝐫 \n\n𝗔𝗻𝘀𝘄𝗲𝗿: ${generatedText}\n\n🗓 | ⏰ 𝙳𝚊𝚝𝚎 & 𝚃𝚒𝚖𝚎:\n${formattedDateTime}`, event.threadID, messageID);
         } else {
             console.error('API response did not contain expected data:', response.data);
             api.sendMessage(`❌ An error occurred while generating the text response. Please try again later. Response data: ${JSON.stringify(response.data)}`, event.threadID, messageID);
