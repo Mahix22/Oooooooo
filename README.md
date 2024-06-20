@@ -1,4 +1,4 @@
-## This Is A Protected Bot! If You Fork Without Permission Your Bot will Ban Automatically😗
+Hey Asslamulaikum Iam Mahi Project 
 
 ## For Using This Bot You Need To Subscribe My YouTube Channel.Than Join My Whatsapp group And Send Me Prove I will Give You Access Code.
 ## I'm [ᴍʀ.ᴀʏᴀɴ] Also Know As 𝐋𝐨𝐠 𝐎𝐮𝐭                    Facebook Link 🔗        ([ᴍʀ.ᴀʏᴀɴ](https://www.facebook.com/NOOBS.DEVELOPER.AYAN)]🙎🏻‍♂️🖤
