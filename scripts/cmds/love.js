@@ -1,55 +1,68 @@
-const axios = require ("axios");
-const fs = require ("fs-extra");
+const axios = require('axios');
 
 module.exports = {
-  config: {
-    name: "love",
-    aliases: ["lovepair"],
-    version: "1.0",
-    author: "ᴍʀ.ᴀʏᴀɴ",
-    countDown: 5,
-    role: 0,
-    shortDescription: " ",
-    longDescription: "",
-    category: "love",
-    guide: "{pn}"
-  },
+	config: {
+		name: "love",
+		version: "1.0",
+		author: "RUBISH",
+		countDown: 5,
+		role: 0,
+		shortDescription: {
+			vi: "Tính chỉ số tình cảm",
+			en: "Calculate love compatibility"
+		},
+		longDescription: {
+			vi: "Sử dụng lệnh này để tính chỉ số tình cảm giữa hai người.",
+			en: "Use this command to calculate love compatibility between two people."
+		},
+		category: "fun",
+		guide: {
+			vi: "Cú pháp: love [tên người thứ nhất] - [tên người thứ hai]",
+			en: "Syntax: love [first person's name] - [second person's name]"
+		}
+	},
 
-  onStart: async function({ api, event, threadsData, usersData }) {
+onStart: async function ({ api, args, message, event }) {
+		try {
+			const text = args.join(" ");
+			const [fname, sname] = text.split('-').map(name => name.trim());
 
-    const { threadID, messageID, senderID } = event;
-    const { participantIDs } = await api.getThreadInfo(threadID);
-    var tle = Math.floor(Math.random() * 101);
-    var namee = (await usersData.get(senderID)).name
-    const botID = api.getCurrentUserID();
-    const listUserID = participantIDs.filter(ID => ID != botID && ID != senderID);
-    var id = listUserID[Math.floor(Math.random() * listUserID.length)];
-    var name = (await usersData.get(id)).name
-    var arraytag = [];
-    arraytag.push({ id: senderID, tag: namee });
-    arraytag.push({ id: id, tag: name });
+			if (!fname || !sname) {
+				return message.reply("❌ Please provide the names of both individuals.");
+			}
 
-    let Avatar = (await axios.get(`https://graph.facebook.com/${senderID}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" })).data;
-    fs.writeFileSync(__dirname + "/cache/avt.png", Buffer.from(Avatar, "utf-8"));
+			const response = await axios.get('https://love-calculator.api-host.repl.co/love-calculator', {
+				params: { fname, sname }
+			});
 
-    let gifLove = (await axios.get(`https://i.imgur.com/GnEUhbE.gif`, { responseType: "arraybuffer" })).data;
-    fs.writeFileSync(__dirname + "/cache/giflove.png", Buffer.from(gifLove, "utf-8"));
+			const result = response.data;
 
-    let Avatar2 = (await axios.get(`https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" })).data;
-    fs.writeFileSync(__dirname + "/cache/avt2.png", Buffer.from(Avatar2, "utf-8"));
+			let loveMessage = `💖 Love Compatibility 💖\n\n${fname} ❤️ ${sname}\n\nPercentage: ${result.percentage}%\n\n● ${result.result}\n`;
 
-    var imglove = [];
+			const intervalMessages = {
+				10: "Just the beginning! Keep exploring your feelings.",
+				20: "There's potential here. Keep nurturing your connection.",
+				30: "A solid foundation! Your love is growing.",
+				40: "Halfway there! Your relationship is blossoming.",
+				50: "A balanced and promising connection! Cherish your love.",
+				60: "Growing stronger! Your bond is becoming more profound.",
+				70: "On the right track to a lasting love! Keep building.",
+				80: "Wow! You're a perfect match! Your love is extraordinary.",
+				90: "Almost there! Your flame is burning brightly.",
+				100: "Congratulations on a perfect connection! You two are meant to be!"
+			};
 
-    imglove.push(fs.createReadStream(__dirname + "/cache/avt.png"));
-    imglove.push(fs.createReadStream(__dirname + "/cache/giflove.png"));
-    imglove.push(fs.createReadStream(__dirname + "/cache/avt2.png"));
+			const interval = Math.floor(result.percentage / 10) * 10;
+			const intervalMessage = intervalMessages[interval];
 
-    var msg = {
-      body: `💥sᴜᴄᴄᴇssғᴜʟʟ ʟᴏᴠᴇɪɴɢ!\n💝ᴡɪsʜ ʏᴏᴜ ᴛᴡᴏ ʜᴜɴᴅʀᴇᴅ ʏᴇᴀʀs two ᴏғ ʟᴏᴠᴇʀ\n💕ᴅᴏᴜʙʟᴇ ʀᴀᴛɪᴏ: ${tle}%\n${namee} 💓 ${name}`,
-      mentions: arraytag,
-      attachment: imglove
-    };
+			if (intervalMessage) {
+				loveMessage += `\n● ${intervalMessage} `;
+			}
 
-    return api.sendMessage(msg, event.threadID, event.messageID);
-  }
+			message.reply(loveMessage);
+		} catch (error) {
+			console.error(error);
+			message.reply("❌ An error occurred while calculating love compatibility. Please try again later.");
+		}
+	}
 };
