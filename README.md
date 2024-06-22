@@ -1,4 +1,4 @@
-iHey Asslamulaikum Iam Mahi Project 
+Hey Asslamulaikum Iam Mahi Project 
 Hello Programmed
 Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 # 📰 Talking about Information
@@ -6,7 +6,7 @@ Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 
 -   Hello Iam Mahi Ahmed 
 -   24/12/2003
--   💬 ᴍʏ ɴɪᴄᴋɴᴀᴍᴇ ɪs ᴀʏᴀɴ🐰
+-   🫦Hello Motherfucker 🖕
 -   💬 ɪ ʜᴀᴠᴇ ᴀ 2ᴘᴇʀsᴏɴ ᴍʏ ᴍᴏᴍ ᴍʏ ᴅᴀᴅ
 -   💓 ʀᴇʟᴇᴛɪᴏɴsʜɪᴘ: sɪɴɢʟᴇ
 -   🍁 ᴘʀᴏғɪʟᴇ: [ғᴀᴄᴇʙᴏᴏᴋ]([](https://www.facebook.com/NOOBS.DEVELOPER.AYAN))
