@@ -2,9 +2,9 @@ Hey Asslamulaikum Iam Mahi Project
 Hello Programmed
 Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 # 📰 Talking about Information
-<img align="right" width=200px alt="PNG" src="https://i.imgur.com/bP9oPhu.jpeg" />
+<img align="right" width=200px alt="PNG" src="https://i.ibb.co/PcFx4GJ/image.jpg" />
 
--   💋 ᴍʏ ɴᴀᴍᴇ ɪs ᴍʀ.ᴀʏᴀɴ🙎🏻‍♂️🖤
+-   Hello Iam Mahi Ahmed 
 -   ❤️‍🔥 19/03/2005
 -   💬 ᴍʏ ɴɪᴄᴋɴᴀᴍᴇ ɪs ᴀʏᴀɴ🐰
 -   💬 ɪ ʜᴀᴠᴇ ᴀ 2ᴘᴇʀsᴏɴ ᴍʏ ᴍᴏᴍ ᴍʏ ᴅᴀᴅ
