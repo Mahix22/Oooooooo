@@ -1,10 +1,9 @@
 const moment = require('moment-timezone');
-
 module.exports = {
   config: {
     name: "uptime",
     version: "1.0",
-    aliases: ["upt", "u"],
+    aliases: ["upt", "up"],
     author: "kaizenjixMahi( Don't change credit🥵)",
     role: 0,
     cooldown: 5,
