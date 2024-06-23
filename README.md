@@ -7,7 +7,7 @@ Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 -   Hello Iam Mahi Ahmed 
 -   24/12/2003
 -   🫦Hello Motherfucker 🖕
--   💬 ɪ ʜᴀᴠᴇ ᴀ 2ᴘᴇʀsᴏɴ ᴍʏ ᴍᴏᴍ ᴍʏ ᴅᴀᴅ
+-   If you think you are bad iam yur dad
 -   💓 ʀᴇʟᴇᴛɪᴏɴsʜɪᴘ: sɪɴɢʟᴇ
 -   🍁 ᴘʀᴏғɪʟᴇ: [ғᴀᴄᴇʙᴏᴏᴋ]([](https://www.facebook.com/NOOBS.DEVELOPER.AYAN))
 -   🍀 ᴅᴇsᴄʀɪʙᴇ ᴀʙᴏᴜᴛ ɪᴍ ᴛᴏ ᴍᴜᴄʜ ʙᴜsʏ ᴍʏ ᴊᴏʙ
