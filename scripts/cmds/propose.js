@@ -41,4 +41,4 @@ async function bal(one, two) {
     img.resize(1077, 718).composite(avone.resize(80, 80), 280, 200).composite(avtwo.resize(80, 80), 530, 365);
     await img.writeAsync(pth);
     return pth;
-      }
+}
