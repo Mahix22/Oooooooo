@@ -14,7 +14,7 @@ I Don't trust any girl without my mom
 <hr>
 
 # 📖 Top Langs
-![](https://imgur.com/a/HkuD0bH)
+![](https://i.ibb.co/JpJmFsZ/image.jpg)
 
 
 # 🤝🏻 Connect with Me
