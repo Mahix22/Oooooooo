@@ -1,52 +1,102 @@
+const path = require("path");
+
+const axios = require("axios");
+
+const fs = require("fs");
+
+
 module.exports = {
- config: {
+
+config: {
+
   name: "shoti",
-  aliases: ["s"],
-  version: "1.0.0",
-  role: 0,
-  author: "libyzxy0",//convert Kaizenji
-  longDescription: { en: "Generate a random tiktok video."},
+
+  version: "1.0.1",
+
+  author: "kinastang eugene",
+
+  aliases: ["st"],
+
+  longDescription: { en: "Generate random shoti "},
+
   category: "fun",
-  countDown: 0,
+
+  countDown: 5,
+
+  role: 0,
+
 },
 
-onStart: async ({ api, event, args }) => {
 
-  api.setMessageReaction("⏳", event.messageID, (err) => {
-     }, true);
-api.sendTypingIndicator(event.threadID, true);
+onStart: async function ({ api, event, args }) {
 
-  const { messageID, threadID } = event;
-  const fs = require("fs");
-  const axios = require("axios");
-  const request = require("request");
-  const prompt = args.join(" ");
+  try {
 
-  if (!prompt[0]) { api.sendMessage("Downloading shoti...", threadID, messageID);
+
+const prompt = args.join(" ");
+const { messageID, threadID } = event;
+
+
+  if (!prompt[0]) { api.sendMessage("๑ | Downloading shoti...", threadID, messageID);
+
     }
 
- try {
-  const response = await axios.post(`https://shoti-srv2-itslibyzxy0.koyeb.app/api/v1/get`, { apikey: `$shoti-1hg4gifgnlfdmeslom8` });
 
-  const path = __dirname + `/cache/shoti.mp4`;
-  const file = fs.createWriteStream(path);
-  const rqs = request(encodeURI(response.data.data.url));
-  rqs.pipe(file);
-  file.on(`finish`, () => {
-     setTimeout(function() {
-       api.setMessageReaction("✅", event.messageID, (err) => {
-          }, true);
-      return api.sendMessage({
-      body: `SHOTI DOWNLOADED! \n\n🍑 •| userName: @${response.data.data.user.username}\n🍑 •| userNickname: ${response.data.data.user.nickname}\n👾 •| userID: ${response.data.data.user.userID}\n👾 •| Duration: ${response.data.data.duration}`, 
-      attachment: fs.createReadStream(path)
-    }, threadID);
-      }, 5000);
-        });
-  file.on(`error`, (err) => {
-      api.sendMessage(`Error: ${err}`, threadID, messageID);
-  });
-   } catch (err) {
-    api.sendMessage(`Error: ${err}`, threadID, messageID);
+    api.setMessageReaction("⏳", event.messageID, (err) => {}, true);
+
+
+      const response = await axios.post(`https://shoti-cutieapi.onrender.com/api/request/f`);
+
+
+      const video = response.data.data.eurixmp4;
+
+      const username = response.data.data.username;
+
+      const nickname = response.data.data.nickname;
+
+      const title = response.data.data.title;
+
+
+      const videoPath = path.join(__dirname, "cache", "eabab.mp4");
+
+
+      const videoResponse = await axios.get(video, { responseType: "arraybuffer" });
+
+
+      fs.writeFileSync(videoPath, Buffer.from(videoResponse.data));
+
+
+
+        api.setMessageReaction("✅", event.messageID, (err) => {}, true);
+
+
+
+      await api.sendMessage(
+
+        {
+
+          body: `Username: ${username}\nNickname: ${nickname}\nTitle: ${title}`,
+
+          attachment: fs.createReadStream(videoPath),
+
+        },
+
+        event.threadID,
+
+        event.messageID
+
+      );
+
+    fs.unlinkSync(videoPath);
+
+  } catch (error) {
+
+    api.sendMessage(`error: ${error.message}`, event.threadID, event.messageID);
+
+    console.log(error);
+
   }
+
 }
+
 };
