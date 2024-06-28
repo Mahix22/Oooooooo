@@ -1,4 +1,4 @@
-.cmd install kiss.js const DIG = require("discord-image-generation");
+const DIG = require("discord-image-generation");
 const fs = require("fs-extra");
 
 
