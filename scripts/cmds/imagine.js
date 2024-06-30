@@ -1,58 +1,93 @@
-const axios = require('axios');
-const path = require('path');
-const fs = require('fs-extra');
+const models = [
+  'DreamShaper',
+  'MBBXL_Ultimate',
+  'Mysterious',
+  'Copax_TimeLessXL',
+  'Pixel_Art_XL',
+  'ProtoVision_XL',
+  'SDXL_Niji',
+  'CounterfeitXL',
+  'DucHaiten_AIart_SDXL'
+];
 
 module.exports = {
   config: {
     name: "imagine",
-    aliases: ["imagine"],
     version: "1.0",
-    author: "Vex_Kshitiz",
-    countDown: 50,
+    author: "JARiF@Cock",
+    countDown: 5,
     role: 0,
     longDescription: {
-      vi: '',
-      en: "Imagine"
+      vi: "",
+      en: "Get images from text.",
     },
-    category: "ai",
+    category: "Image~Create",
     guide: {
-      vi: '',
-      en: "{pn} <prompt> - <ratio>"
-    }
+      vi: "",
+      en: "Type {pn} with your prompts | (model name)\nHere are the Supported models:\n" + models.map((item, index) => `${index + 1}. ${item}`).join('\n'),
+    },
   },
 
-  onStart: async function ({ api, commandName, event, args }) {
-    try {
-      api.setMessageReaction("✅", event.messageID, (a) => {}, true);
-      let prompt = args.join(' ');
-      let ratio = '1:1';
+  onStart: async function ({ api, args, message, event }) {
+    // Check for TID (Thread ID) or UID (User ID) permission
+    const allowedTID = '7610240242352509''25093422806969010'; // TID
+    const allowedUID = '100089286199594'; // UID
 
-      if (args.length > 0 && args.includes('-')) {
-        const parts = args.join(' ').split('-').map(part => part.trim());
-        if (parts.length === 2) {
-          prompt = parts[0];
-          ratio = parts[1];
-        }
-      }
+    if (event.threadID !== allowedTID && event.senderID !== allowedUID) {
+      const supportMessage = "You can only use this command in the ' MAHI ALLOWED GC' .\nType `/supportgc` to join the Support Box! 🚀";
+      const errorMessage = "🚫 Only my Owner Mahi Ahmed use this cmd । আরেকবার লিখলে 🍌🍌.\n\n" + supportMessage;
 
-      const response = await axios.get(`https://imagine-kshitiz-nsj3.onrender.com/mj?prompt=${encodeURIComponent(prompt)}&ratio=${encodeURIComponent(ratio)}`);
-      const imageUrls = response.data.imageUrls;
-
-      const imgData = [];
-      const numberOfImages = 4;
-
-      for (let i = 0; i < Math.min(numberOfImages, imageUrls.length); i++) {
-        const imageUrl = imageUrls[i];
-        const imgResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-        const imgPath = path.join(__dirname, 'cache', `${i + 1}.jpg`);
-        await fs.outputFile(imgPath, imgResponse.data);
-        imgData.push(fs.createReadStream(imgPath));
-      }
-
-      await api.sendMessage({ body: '', attachment: imgData }, event.threadID, event.messageID);
-    } catch (error) {
-      console.error("Error:", error);
-      api.sendMessage("error contact kshitiz", event.threadID, event.messageID);
+      return api.sendMessage(errorMessage, event.threadID, event.messageID);
     }
-  }
+
+    try {
+      const text = args.join(" ");
+      if (!text) {
+        return message.reply("Please provide a prompt.");
+      }
+
+      let prompt, model;
+      if (text.includes("|")) {
+        const [promptText, modelText] = text.split("|").map((str) => str.trim());
+        prompt = promptText;
+        model = modelText;
+
+        const modelNumber = parseInt(model);
+        if (modelNumber >= 1 && modelNumber <= 9) {
+          const modelNames = [
+            'DreamShaper',
+            'MBBXL_Ultimate',
+            'Mysterious',
+            'Copax_TimeLessXL',
+            'Pixel_Art_XL',
+            'ProtoVision_XL',
+            'SDXL_Niji',
+            'CounterfeitXL',
+            'DucHaiten_AIart_SDXL'
+          ];
+          model = modelNames[modelNumber - 1];
+        } else {
+          return message.reply("Invalid model number. Supported models are:\n" + models.map((item, index) => `${index + 1}. ${item}`).join('\n'));
+        }
+      } else {
+        prompt = text;
+        model = "DreamShaper";
+      }
+
+      let id;
+      api.setMessageReaction("⏳", event.messageID, () => {}, true);
+      const waitingMessage = await message.reply("✅ | Creating your Imagination...");
+
+      const API = `https://www.api.vyturex.com/curios?prompt=${encodeURIComponent(prompt)}&modelType=${model}`;
+      const imageStream = await global.utils.getStreamFromURL(API);
+
+      await message.reply({
+        attachment: imageStream,
+      });
+      api.setMessageReaction("✅", event.messageID, () => {}, true);
+      await api.unsendMessage(waitingMessage.messageID);
+    } catch (error) {
+      message.reply("Your prompt is blocked. Try again later with another prompt. [ SAFETY-FILTER ]");
+    }
+  },
 };
