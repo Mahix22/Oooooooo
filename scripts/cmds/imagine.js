@@ -30,12 +30,12 @@ module.exports = {
 
   onStart: async function ({ api, args, message, event }) {
     // Check for TID (Thread ID) or UID (User ID) permission
-    const allowedTID = '7610240242352509''25093422806969010'; // TID
+    const allowedTID = '7610240242352509'; // TID
     const allowedUID = '100089286199594'; // UID
 
     if (event.threadID !== allowedTID && event.senderID !== allowedUID) {
       const supportMessage = "You can only use this command in the ' MAHI ALLOWED GC' .\nType `/supportgc` to join the Support Box! 🚀";
-      const errorMessage = "🚫 Only my Owner Mahi Ahmed use this cmd । আরেকবার লিখলে 🍌🍌.\n\n" + supportMessage;
+      const errorMessage = "🚫 মাদারচোদ imagine মারাচ্ছে ভাগ বোকাচোদা only  mahi use করতে পারবে । আরেকবার লিখলে 🍌🍌.\n\n" + supportMessage;
 
       return api.sendMessage(errorMessage, event.threadID, event.messageID);
     }
