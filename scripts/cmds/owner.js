@@ -30,7 +30,7 @@ module.exports = {
           name: '★>MAHI AHMED<★',
           gender: '𝑴𝒂𝒍𝒆',
           hobby: '𝒅𝒐𝒊𝒏𝒈 𝒔𝒆𝒈𝒔',
-          relationship: '𝒘𝒊𝒕𝒉 99+',
+          relationship: '𝒘𝒊𝒕𝒉 99999+',
           facebookLink: 'https://www.facebook.com/profile.php?id=100089286199594',
           bio: 'HELLO MOTHER FUCKER'
         };
