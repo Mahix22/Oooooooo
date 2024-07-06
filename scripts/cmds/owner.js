@@ -35,7 +35,7 @@ module.exports = {
           bio: 'HELLO MOTHER FUCKER'
         };
 
-        const videoUrl = 'https://i.imgur.com/ox5pQkH.mp4';
+        const videoUrl = 'https://i.imgur.com/UItwUFz.mp4';
         const tmpFolderPath = path.join(__dirname, 'tmp');
 
         if (!fs.existsSync(tmpFolderPath)) {
