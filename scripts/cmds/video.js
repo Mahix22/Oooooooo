@@ -6,7 +6,7 @@ const ytdl = require("ytdl-core");
 const yts = require("yt-search");
 
 async function video(api, event, args, message) {
-    api.setMessageReaction("☢️", event.messageID, (err) => {}, true);
+    api.setMessageReaction("🕢", event.messageID, (err) => {}, true);
     try {
         let title = '';
 
@@ -21,7 +21,7 @@ async function video(api, event, args, message) {
 
         if (event.messageReply && event.messageReply.attachments && event.messageReply.attachments.length > 0) {
             const shortUrl = await extractShortUrl();
-            const musicRecognitionResponse = await axios.get(`https://audioreco.onrender.com/kshitiz?url=${encodeURIComponent(shortUrl)}`);
+            const musicRecognitionResponse = await axios.get(`https://youtube-music-sooty.vercel.app/kshitiz?url=${encodeURIComponent(shortUrl)}`);
             title = musicRecognitionResponse.data.title;
         } else if (args.length === 0) {
             message.reply("Please provide a video name.");
@@ -47,8 +47,8 @@ async function video(api, event, args, message) {
 
         writer.on('finish', () => {
             const videoStream = fs.createReadStream(filePath); 
-            message.reply({ body: `✨ Playing: ${title}`, attachment: videoStream });
-            api.setMessageReaction("✨", event.messageID, () => {}, true);
+            message.reply({ body: `📹 Playing: ${title}`, attachment: videoStream });
+            api.setMessageReaction("✅", event.messageID, () => {}, true);
         });
 
         writer.on('error', (error) => {
@@ -65,12 +65,12 @@ module.exports = {
     config: {
         name: "video", 
         version: "1.0",
-        author: "𝗠𝗥.𝗔𝗬𝗔𝗡", 
+        author: "Kshitiz",
         countDown: 10,
         role: 0,
         shortDescription: "play video from youtube",
         longDescription: "play video from youtube support audio recogonization.",
-        category: "music",
+        category: "media",
         guide: "{p} video videoname / reply to audio or vdo" 
     },
     onStart: function ({ api, event, args, message }) {
