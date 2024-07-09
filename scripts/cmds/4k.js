@@ -39,7 +39,7 @@ module.exports = {
       const url = await tinyurl.shorten(imageUrl);
       const k = await a.get(`https://www.api.vyturex.com/upscale?imageUrl=${url}`);
 
-      message.reply("☢️ | ᴡᴀɪᴛ ʙᴀʙʏ ᴅᴏᴡɴʟᴏᴀᴅ ɴᴏᴡ•••");
+      message.reply("☢️ | Wait for some time••");
 
       const resultUrl = k.data.resultUrl;
 
