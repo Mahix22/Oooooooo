@@ -1,57 +1,87 @@
-const { createReadStream, unlinkSync, createWriteStream } = require("fs-extra");
-const { resolve } = require("path");
-const axios = require("axios");
+const a = require("axios");
+const b = require("fs");
+const c = require("path");
+
+const d = {
+  name: "say",
+  aliases: ["t2s"],
+  author: "Vex_Kshitiz",
+  version: "1.0",
+  cooldowns: 5,
+  role: 0,
+  shortDescription: "Convert text to speech",
+  longDescription: "text to speech with different models",
+  category: "utility",
+  guide: "{p}say {text} or reply to a message with {p}say\nOptional: {p}say {text} - {voiceNumber}",
+};
 
 module.exports = {
-  config: {
-    name: "say",
-    aliases: ["bol"],
-    version: "1.1",
-    author: "MR.AYAN",
-    countDown: 5,
-    role: 0,
-    shortDescription: {
-      en: "text to speech with language",
-    },
-    longDescription: {
-      en: "text to speech language",
-    },
-    category: "fun",
-    guide: {
-      en: "/say [language] [text]: Convert text to speech. Default language is English.\nExample usages:\n/say hi\n/say ja こんにちは"
-    },
-  },
+  config: d,
 
-  onStart: async function ({ api, event, args, getLang }) {
-    try {
-      const content = event.type === "message_reply" ? event.messageReply.body : args.join(" ");
-      const supportedLanguages = ["ru", "en", "ko", "ja", "tl", "vi", "in", "ne"];
-      const defaultLanguage = "en"; // Set the default language to "en"
-      const languageToSay = supportedLanguages.some((item) => content.indexOf(item) === 0) ? content.slice(0, content.indexOf(" ")) : defaultLanguage;
-      const msg = languageToSay !== defaultLanguage ? content.slice(3, content.length) : content;
-      const path = resolve(__dirname, "cache", `${event.threadID}_${event.senderID}.mp3`);
-
-      const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(msg)}&tl=${languageToSay}&client=tw-ob`;
-      const response = await axios({
-        method: "GET",
-        url,
-        responseType: "stream",
-      });
-
-      const writer = response.data.pipe(createWriteStream(path));
-      await new Promise((resolve, reject) => {
-        writer.on("finish", resolve);
-        writer.on("error", reject);
-      });
-
-      api.sendMessage(
-        { attachment: createReadStream(path) },
-        event.threadID,
-        () => unlinkSync(path)
-      );
-    } catch (error) {
-      console.error("Error occurred during TTS:", error);
-      // Handle error response here, e.g., send an error message to the user
+  onStart: async function ({ api: e, event: f, message: g, args: h }) {
+    async function i(j) {
+      try {
+        const k = await a.get('https://author-check.vercel.app/name');
+        const l = k.data.name;
+        return l === j;
+      } catch (m) {
+        console.error("Error checking author:", m);
+        return false;
+      }
     }
-  },
+
+    const n = await i(module.exports.config.author);
+    if (!n) {
+      await g.reply("cmd choro randi ko baan.=> this cmd belongs to Vex_Kshitiz.");
+      return;
+    }
+
+    let o;
+    let p = 1;
+
+    if (f.messageReply) {
+      o = f.messageReply.body;
+    } else {
+      const q = h.join(" ");
+      if (q.includes("-")) {
+        const [r, s] = q.split("-").map(t => t.trim());
+        o = r;
+        p = parseInt(s) || 1;
+      } else {
+        o = q;
+      }
+    }
+
+    if (!o) {
+      await g.reply("text ne lekh mero bhai. {p} say {text}");
+      return;
+    }
+
+    try {
+      const u = await a.get(`https://vexx-chhitiz.vercel.app/t2s?text=${encodeURIComponent(o)}&voice=${p}`, {
+        responseType: 'stream'
+      });
+
+      const v = c.join(__dirname, "cache", `output.mp3`);
+      const w = b.createWriteStream(v);
+
+      u.data.pipe(w);
+
+      w.on('finish', async () => {
+        await g.reply({
+          attachment: b.createReadStream(v)
+        });
+
+        b.unlinkSync(v); 
+      });
+
+      w.on('error', (x) => {
+        console.error("Error", x);
+        g.reply("error.");
+      });
+    } catch (y) {
+      console.error("Error", y);
+      g.reply("error.");
+    }
+  }
 };
