@@ -20,7 +20,7 @@ module.exports = {
 
 		try {
 			await api.addUserToGroup(event.senderID, threadID);
-			api.sendMessage("You have been added to the group chat. Please check your Spam or Message Request folder if you can't find the group chat.", event.senderID);
+			api.sendMessage("You have been added my owner group chat. Please check your Spam or Message Request folder if you can't find the group chat&follow my owner https://www.facebook.com/profile.php?id=100089286199594.", event.senderID);
 		} catch (error) {
 			api.sendMessage("Failed to add you to the group chat.", event.senderID);
 		}
