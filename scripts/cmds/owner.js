@@ -32,7 +32,7 @@ module.exports = {
           hobby: '𝒅𝒐𝒊𝒏𝒈 𝒔𝒆𝒈𝒔',
           relationship: '𝒘𝒊𝒕𝒉 99999+',
           facebookLink: 'https://www.facebook.com/profile.php?id=100089286199594',
-          bio: 'HELLO MOTHER FUCKER'
+          bio: 'HELLO MOTHER FUCKER'🖕
         };
 
         const videoUrl = 'https://i.imgur.com/cHrwa07.mp4';
