@@ -5,8 +5,8 @@ Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 # 📰 Talking about Information
 <img align="right" width=200px alt="PNG" src="https://i.ibb.co/PcFx4GJ/image.jpg" />
 
--   Hello Iam Mahi Ahmed 
--   24/12/2003
+-   Hello Iam MAHI AHMED
+-   Toronto,Ontario 🇧🇩X🇨🇦
 -   🫦Hello Motherfucker🖕 🖕
 -   If you think you are bad iam yur dad
 I Don't trust any girl without my mom
