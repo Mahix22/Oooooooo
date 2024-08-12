@@ -13,7 +13,7 @@ module.exports.config = {
 module.exports.onLoad = async ({ api }) => {
   const arrayData = {
      "12:00:00 PM": {
-        message: "🔔 𝗔𝘂𝘁𝗼 𝗦𝗰𝗵𝗲𝗱𝘂𝗹𝗲:\n▬▬▬▬▬▬▬▬▬▬▬▬\n⏰ time now - 12:00 𝐏𝐌\n\n📌 good afternoon everyone don't forget to eat y'all lunch break🍛"
+        message: "🔔 𝗔𝘂𝘁𝗼 𝗦𝗰𝗵𝗲𝗱𝘂𝗹𝗲:\n▬▬▬▬▬▬▬▬▬▬▬▬\n⏰ time now - 12:00 𝐏𝐌\n\n📌 good afternoon everyone don't forget to eat lunch break🍛"
       },
       "01:00:00 AM": {
         message: "🔔 𝗔𝘂𝘁𝗼 𝗦𝗰𝗵𝗲𝗱𝘂𝗹𝗲:\n▬▬▬▬▬▬▬▬▬▬▬▬\n⏰ time now - 01:00 𝐀𝐌\n\n📌 good morning everyone!!, have a nice morning babe🍞☕🌅"
