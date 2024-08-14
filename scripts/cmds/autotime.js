@@ -39,7 +39,7 @@ module.exports.onLoad = async ({ api }) => {
         
       },
       "07:00:00 AM": {
-        message: "🔔 𝗔𝘂𝘁𝗼 𝗦𝗰𝗵𝗲𝗱𝘂𝗹𝗲:\n▬▬▬▬▬▬▬▬▬▬▬▬\n⏰ time now - 07:00 𝐀𝐌\n\n📌 don't forget to eat y'all breakfast!! babe🍞☕🍛"
+        message: "🔔 𝗔𝘂𝘁𝗼 𝗦𝗰𝗵𝗲𝗱𝘂𝗹𝗲:\n▬▬▬▬▬▬▬▬▬▬▬▬\n⏰ time now - 07:00 𝐀𝐌\n\n📌 don't forget to eat y'all breakfast!!ok babe🍞☕🍛"
         
       },
       "08:00:00 AM": {
