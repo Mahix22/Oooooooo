@@ -7,7 +7,7 @@ version: "1.0.0",
     author: "chill",//convert by kaizenji
     longDescription: {en: "Interact with Gemini"},
     role: 0,
-    aliases: ["gemi2"],
+    aliases: ["gem2"],
     category: "ai",
     countDown: 5,
 },
