@@ -23,7 +23,7 @@ module.exports = {
           attachment: gifUrl
         }, event.threadID);
       } else {
-        throw new Error("Failed to fetch emoji gif.");
+        throw new Error("Failed to fetch emoji gif🙂.");
       }
     } catch (error) {
       console.error("Error retrieving emoji gif:", error.message);
