@@ -33,8 +33,8 @@ module.exports = {
       const numberOfImages = parseInt(numImages);
 
      
-      if (isNaN(numberOfImages) || numberOfImages <= 0 || numberOfImages > 8) {
-        return api.sendMessage("Please specify a number between 1 and 8.", event.threadID, event.messageID);
+      if (isNaN(numberOfImages) || numberOfImages <= 0 || numberOfImages > 50) {
+        return api.sendMessage("Please specify a number between 1 and 50.", event.threadID, event.messageID);
       }
 
    
