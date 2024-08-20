@@ -7,7 +7,7 @@ module.exports = {
   author: "Samir Œ",
   countDown: 10,
   role: 2,
-  category: "𝗧𝗢𝗢𝗟'𝗦",
+  category: "image",
   guide: {
     vi: "{pn} trả lời một hình ảnh",
     en: "{pn} reply to an image"
