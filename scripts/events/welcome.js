@@ -22,7 +22,7 @@ module.exports = {
 			defaultWelcomeMessage: "Xin chào {userName}.\nChào mừng bạn đến với {boxName}.\nChúc bạn có buổi {session} vui vẻ!"
 		},
 		en: {
-			session1: "morning",
+			session1: "𝗺𝗼𝗿𝗻𝗶𝗻𝗴",
 			session2: "noon",
 			session3: "afternoon",
 			session4: "evening",
