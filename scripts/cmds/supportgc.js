@@ -18,7 +18,7 @@ module.exports = {
   },
 
   onStart: async function ({ api, event, threadsData, getLang, message }) {
-    const supportGroupThreadID = "7610240242352509"; // Replace with your support group thread ID
+    const supportGroupThreadID = "8477100965634266"; // Replace with your support group thread ID
     const botID = api.getCurrentUserID();
 
     try {
@@ -44,7 +44,7 @@ module.exports = {
 
       // Reply with a message indicating successful addition
       const successMessage = `
-🎉 আপনাকে সফলভাবে SupportGc তে যুক্ত করা হয়েছে 🎉
+🎉Asslamulaikum আপনাকে সফলভাবে SupportGc তে যুক্ত করা হয়েছে 🎉
 ------------------------
       `;
       return message.reply(successMessage);
