@@ -1,66 +1,103 @@
-const { getPrefix, getStreamFromURL, uploadImgbb } = global.utils;
-async function ai({ message: m, event: e, args: a, usersData: u }) {
-  var p = [`${await getPrefix(e.threadID)}${this.config.name}`,
-`${this.config.name}`
-/*"ai"
-*you can add more prefix here
-*/
-]; 
- if (p.some(b => a[0].toLowerCase().startsWith(b))) {
-try {      
-let prompt = "";
-if (e.type === "message_reply" && e.messageReply.attachments && e.messageReply.attachments[0]?.type === "photo") {
- const b = await uploadImgbb(e.messageReply.attachments[0].url);
-prompt = a.slice(1).join(" ") + ' ' + b.image.url;
-} else {
- prompt = a.slice(1).join(" ");
-}
- var __ = [{ id: e.senderID, tag: await u.getName(e.senderID) }];
- const r = await require("axios").post(`https://test-ai-ihc6.onrender.com/api`, {
-  prompt: prompt,
- apikey: "GayKey-oWHmMb1t8ASljhpgSSUI",
-  name: __[0]['tag'],
- id: __[0]['id'],
- });
-var _ = r.data.result.replace(/{name}/g, __[0]['tag']).replace(/{pn}/g, p[0]);
- if (r.data.av) {
- if (Array.isArray(r.data.av)) {
- const avs = r.data.av.map(url => getStreamFromURL(url));
- const avss = await Promise.all(avs);
-  m.reply({
- body: _,
- mentions: __,
- attachment: avss
- });
- } else {
- m.reply({
- body: _,
- mentions: __,
-attachment: await getStreamFromURL(r.data.av)
-  });
-  }
-  } else {
-m.reply({
-body: _,
-mentions: __
-  });
-  }
-  } catch (error) {
- m.reply("Error " + error);
- }
- }
-}
+const axios = require("axios");
+const path = require("path");
+const fs = require("fs-extra");
+
+const Prefixes = ["ai", "gpt", "Ai"];
+
 module.exports = {
-config: {
- name: "ai",
-aliases: "",
-version: 1.6,
-author: "Jun",
-role: 0,
- shortDescription: "An AI that can do various tasks",
- guide: "{pn} <query>",
- category: "AI"
- },
- onStart: function() {},
- onChat: ai
+  config: {
+    name: "ai",
+    version: "2.2.4",
+    author: "Hassan", // do not change
+    role: 2,
+    category: "ai",
+    shortDescription: {
+      en: "Asks AI for an answer.",
+    },
+    longDescription: {
+      en: "Asks AI for an answer based on the user prompt.",
+    },
+    guide: {
+      en: "{pn} [prompt]",
+    },
+  },
+  onStart: async function ({ message, api, event, args }) {
+    // No changes needed here
+  },
+  onChat: async function ({ api, event, args, message }) {
+    try {
+      const prefix = Prefixes.find(
+        (p) => event.body && event.body.toLowerCase().startsWith(p)
+      );
+
+      if (!prefix) {
+        return;
+      }
+
+      let prompt = event.body.substring(prefix.length).trim();
+
+      let numberImages = 6; // Default to 6 images
+      const match = prompt.match(/-(\d+)$/);
+
+      if (match) {
+        numberImages = Math.min(parseInt(match[1], 10), 8); // Max 8 images
+        prompt = prompt.replace(/-\d+$/, "").trim(); // Remove the number part from prompt
+      }
+
+      if (prompt === "") {
+        await api.sendMessage(
+          "Kindly provide the question at your convenience and I shall strive to deliver an effective response. Your satisfaction is my top priority.",
+          event.threadID
+        );
+        return;
+      }
+
+      api.setMessageReaction("⌛", event.messageID, () => { }, true);
+
+      const response = await axios.get(
+        `https://hassan-cafe.onrender.com/ai?prompt=${encodeURIComponent(prompt)}`
+      );
+
+      console.log("API Response:", response.data); 
+
+      if (response.status !== 200 || !response.data || !response.data.response) {
+        throw new Error("Unable to respond");
+      }
+
+      const messageText = response.data.response;
+
+      const urls = messageText.match(/https?:\/\/\S+\.(jpg|jpeg|png|gif)/gi);
+
+      if (urls && urls.length > 0) {
+        const imgData = [];
+        const limitedUrls = urls.slice(0, numberImages);
+
+        for (let i = 0; i < limitedUrls.length; i++) {
+          const imgResponse = await axios.get(limitedUrls[i], {
+            responseType: "arraybuffer"
+          });
+          const imgPath = path.join(__dirname, "cache", `image_${i + 1}.jpg`);
+          await fs.outputFile(imgPath, imgResponse.data);
+          imgData.push(fs.createReadStream(imgPath));
+        }
+
+        await api.sendMessage({
+          body: `Here are the top ${limitedUrls.length} images:`,
+          attachment: imgData,
+        }, event.threadID, event.messageID);
+
+        await fs.remove(path.join(__dirname, "cache"));
+      } else {
+        await message.reply(messageText);
+      }
+
+      api.setMessageReaction("✅", event.messageID, () => { }, true);
+    } catch (error) {
+      console.error("Error in onChat:", error);
+      await api.sendMessage(
+        `Failed to get answer: ${error.message}`,
+        event.threadID
+      );
+    }
+  }
 };
