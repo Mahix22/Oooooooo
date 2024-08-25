@@ -3,8 +3,8 @@ const rubishapi = global.GoatBot.config.rubishapi;
 
 module.exports = {
   config: {
-    name: 'spriha',
-    aliases: ["spriha"],
+    name: 'sam',
+    aliases: ["sam"],
     version: '3.0',
     author: 'RUBISH',
     countDown: 0,
