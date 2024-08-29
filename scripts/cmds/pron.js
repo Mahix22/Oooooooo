@@ -12,7 +12,7 @@ module.exports = {
 		name: "pron",
 		aliases: ["porn"],
 		version: "2.0",
-		author: "MR.AYAN",
+		author: "GOJO XD MAHI",
 		countDown: 30,
 		role: 0,
 		shortDescription: "",
