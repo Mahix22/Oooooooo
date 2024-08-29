@@ -1,80 +1,49 @@
-module.exports.config = {
-    name: "kiss",
-    version: "2.0.0",
-    hasPermssion: 0,
-    credits: "ZiaRein",
-    description: "kiss someone",
-    commandCategory: "Love",
-    usages: `Please tag 1 person\n\nHow to use?\n${global.config.PREFIX}kiss <@tag>\n\nExample:\n${global.config.PREFIX}kiss @name\n`,
-    cooldowns: 5,
-    dependencies: {
-        "axios": "",
-        "fs-extra": "",
-        "path": "",
-        "jimp": ""
+const axios = require('axios');
+const jimp = require("jimp");
+const fs = require("fs")
+
+
+module.exports = {
+    config: {
+        name: "kiss",
+        aliases: ["kiss 2 kiss"],
+        version: "1.0",
+        author: "Mohammad Badol",
+        countDown: 5,
+        role: 0,
+        shortDescription: "lif kiss",
+        longDescription: "",
+        category: "photo",
+        guide: ""
+    },
+
+
+
+    onStart: async function ({ message, event, args }) {
+        const mention = Object.keys(event.mentions);
+        if (mention.length == 0) return message.reply("💚আপমি যাকে কিস দিবেন মেনশন করুন প্লিজ✅");
+        else if (mention.length == 1) {
+            const one = event.senderID, two = mention[0];
+            bal(one, two).then(ptth => { message.reply({ body: "╔⏤⏤⏤╝❮❮𝐌𝐈𝐌-𝐁𝐎𝐓-𝟎𝟎𝟕❯❯╚⏤⏤⏤╗\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n💋 লিফ কিস মানে ছেপ খায়া🤮 ধন্যবাদ 🤣\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n╔⏤⏤⏤╝❮❮𝐌𝐈𝐌-𝐁𝐎𝐓-𝟎𝟎𝟕❯❯╚⏤⏤⏤╗", attachment: fs.createReadStream(ptth) }) })
+        } else {
+            const one = mention[1], two = mention[0];
+            bal(one, two).then(ptth => { message.reply({ body: "he is not me🕸", attachment: fs.createReadStream(ptth) }) })
+        }
     }
+
+
 };
 
-module.exports.onLoad = async() => {
-    const { resolve } = global.nodemodule["path"];
-    const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
-    const { downloadFile } = global.utils;
-    const dirMaterial = __dirname + `/cache/`;
-    const path = resolve(__dirname, 'cache', 'hon.png');
-    if (!existsSync(dirMaterial + "")) mkdirSync(dirMaterial, { recursive: true });
-    if (!existsSync(path)) await downloadFile("https://i.imgur.com/BtSlsSS.jpg", path);
+async function bal(one, two) {
 
+   let avone = await jimp.read(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
+    avone.circle()
+    let avtwo = await jimp.read(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
+    avtwo.circle()
+    let pth = "spiderman.png"
+    let img = await jimp.read("https://i.imgur.com/JLdnfih.jpeg")
+    img.resize(1440, 1080).composite(avone.resize(370, 370), 250, 210).composite(avtwo.resize(370, 370), 800, 250);
+
+    await img.writeAsync(pth)
+    return pth
 }
-
-async function makeImage({ one, two }) {
-    const fs = global.nodemodule["fs-extra"];
-    const path = global.nodemodule["path"];
-    const axios = global.nodemodule["axios"]; 
-    const jimp = global.nodemodule["jimp"];
-    const __root = path.resolve(__dirname, "cache");
-
-    let hon_img = await jimp.read(__root + "/hon.png");
-    let pathImg = __root + `/hon_${one}_${two}.png`;
-    let avatarOne = __root + `/avt_${one}.png`;
-    let avatarTwo = __root + `/avt_${two}.png`;
-    
-    let getAvatarOne = (await axios.get(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
-    fs.writeFileSync(avatarOne, Buffer.from(getAvatarOne, 'utf-8'));
-    
-    let getAvatarTwo = (await axios.get(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: 'arraybuffer' })).data;
-    fs.writeFileSync(avatarTwo, Buffer.from(getAvatarTwo, 'utf-8'));
-    
-    let circleOne = await jimp.read(await circle(avatarOne));
-    let circleTwo = await jimp.read(await circle(avatarTwo));
-    hon_img.resize(700, 440).composite(circleOne.resize(200, 200), 390, 23).composite(circleTwo.resize(180, 180), 140, 80);
-    
-    let raw = await hon_img.getBufferAsync("image/png");
-    
-    fs.writeFileSync(pathImg, raw);
-    fs.unlinkSync(avatarOne);
-    fs.unlinkSync(avatarTwo);
-    
-    return pathImg;
-}
-async function circle(image) {
-    const jimp = require("jimp");
-    image = await jimp.read(image);
-    image.circle();
-    return await image.getBufferAsync("image/png");
-}
-
-module.exports.run = async function ({ event, api, args, Currencies }) { 
-    const fs = global.nodemodule["fs-extra"];
-    const ae = ["💚 congrats❤","💙 congrats💜"];
-    const hc = Math.floor(Math.random() * 101) + 101;
-    const rd = Math.floor(Math.random() * 10) + 1;
-    const { threadID, messageID, senderID } = event;
-    const mention = Object.keys(event.mentions);
-    var one = senderID, two = mention[0];
-  await Currencies.increaseMoney(event.senderID, parseInt(hc*rd));
-  
-  if (!two) return api.sendMessage(`Please tag 1 person\n\nHow to use?\n${global.config.PREFIX}kiss <@tag>\n\nExample:\n${global.config.PREFIX}kiss @name\n\nCreated by: CaNDY (LaFhanGa chokra)`, threadID, messageID);
-  else {
-        return makeImage({ one, two }).then(path => api.sendMessage({ body: `${ae[Math.floor(Math.random() * ae.length)]}\nYour sympathy after being stolen is ${hc} %\n + ${((hc)*rd)} $`, attachment: fs.createReadStream(path)}, threadID, () => fs.unlinkSync(path), messageID));
-  }
-  }
