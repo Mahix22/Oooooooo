@@ -8,7 +8,7 @@ Here Is My Fb Id- https://www.facebook.com/profile.php?id=100089286199594
 
 -   Hello Iam MAHI AHMED
 -   Toronto,Ontario 🇧🇩X🇨🇦
--   🫦Hello Motherfucker🖕 🖕
+-   Hello Motherfucker🖕 🖕
 -   If you think you are bad iam yur dad
 I Don't trust any girl without my mom
 -   🍁 ᴘʀᴏғɪʟᴇ: [ғᴀᴄᴇʙᴏᴏᴋ]([](https://www.facebook.com/profile.php?id=100089286199594)
