@@ -1,5 +1,5 @@
 const axios = require("axios");
-const fs = require("fs");
+const fs = req"fs");
 const path = require("path");
 
 let isRandomVideoEnabled = false;
