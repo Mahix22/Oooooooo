@@ -5,7 +5,7 @@ module.exports = {
   config: {
     name: "4k",
     version: "1.0",
-    author: "MR.AYAN",
+    author: "MR.AYA",
     countDown: 15,
     role: 0,
     longDescription: "Upscale your image.",
