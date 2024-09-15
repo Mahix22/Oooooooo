@@ -53,7 +53,7 @@ module.exports = {
       try {
         // Send warning message to the group
         await message.send({
-          body: `❎ | You Added The Anchestor Without Permission !!\n\n✧ Take Permission From Anchestor's Admin to Use Anchestor In Your Group !!\n✧ Join Anchestor Support Group Chat to Contact Admins !!\n\n✧ Type ${prefix}supportgc within 20 seconds.\n\n- Anchestor Co., Ltd.`,
+          body: `❎ | You Added The LiSA V2 Without Permission !!\n\n✧ Take Permission From lisa v2 Admin to Use Dark In Your Group !!\n✧ Join Dark Support Group Chat to Contact Admins !!\n\n✧ Type ${prefix}supportgc within 20 seconds.\n\n- Dark Co., Ltd.`,
           attachment: await getStreamFromURL("https://i.imgur.com/p62wheh.gif") // Updated image URL
         });
 
