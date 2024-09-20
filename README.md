@@ -1,4 +1,4 @@
-Asslamulaikum💝💜 Iam💜 Mahi Project🌸
+Asslamulaikum💝💜 Iam Mahi Project🌸
 
 Hello Programmer💋,
 
